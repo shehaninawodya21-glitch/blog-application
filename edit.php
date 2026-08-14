@@ -34,7 +34,8 @@ if (!$blog) {
 
 // IMPORTANT: Check ownership
 if ($blog["user_id"] != $_SESSION["user_id"]) {
-    die("You are not authorized to edit this blog.");
+    header("Location: blog.php?id=" . $blog_id);
+    exit();
 }
 
 $message = "";
@@ -44,6 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $title = trim($_POST["title"]);
     $content = trim($_POST["content"]);
+    $imageUrl = trim($_POST["image_url"] ?? "");
 
     if (empty($title) || empty($content)) {
 
@@ -53,13 +55,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $update = $pdo->prepare(
             "UPDATE blogPost
-             SET title = ?, content = ?
+             SET title = ?, content = ?, image_url = ?
              WHERE id = ? AND user_id = ?"
         );
 
         $update->execute([
             $title,
             $content,
+            $imageUrl !== "" ? $imageUrl : null,
             $blog_id,
             $_SESSION["user_id"]
         ]);
@@ -83,75 +86,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <title>Edit Blog</title>
 
-    <style>
-
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f4f4;
-            margin: 0;
-        }
-
-        .container {
-            width: 90%;
-            max-width: 800px;
-            margin: 40px auto;
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-        }
-
-        h1 {
-            text-align: center;
-        }
-
-        label {
-            display: block;
-            margin-top: 15px;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-
-        input,
-        textarea {
-            width: 100%;
-            padding: 12px;
-            box-sizing: border-box;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        textarea {
-            height: 250px;
-            resize: vertical;
-        }
-
-        button {
-            margin-top: 20px;
-            padding: 12px 25px;
-            background: #333;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .message {
-            color: red;
-            margin-bottom: 15px;
-        }
-
-        .back {
-            display: inline-block;
-            margin-top: 20px;
-        }
-
-    </style>
+    <link rel="stylesheet" href="css/style.css">
 
 </head>
 
-<body>
+<body class="form-page">
 
-<div class="container">
+<div class="form-container">
 
     <h1>Edit Blog</h1>
 
@@ -175,6 +116,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             required
         >
 
+        <label>Blog Cover Image URL (optional)</label>
+
+        <input
+            type="url"
+            name="image_url"
+            value="<?php echo htmlspecialchars($blog["image_url"] ?? ""); ?>"
+            placeholder="https://example.com/image.jpg"
+        >
 
         <label>Blog Content</label>
 
@@ -191,7 +140,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </form>
 
 
-    <a class="back" href="blog.php?id=<?php echo $blog_id; ?>">
+    <a class="back-link" href="blog.php?id=<?php echo $blog_id; ?>">
         ← Cancel
     </a>
 

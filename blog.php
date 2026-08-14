@@ -10,7 +10,32 @@ if (!isset($_GET["id"]) || !is_numeric($_GET["id"])) {
     exit();
 }
 
-$blog_id = $_GET["id"];
+$blog_id = (int) $_GET["id"];
+
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["comment_text"])) {
+    if (!isset($_SESSION["user_id"])) {
+        header("Location: login.php");
+        exit();
+    }
+
+    $commentText = trim($_POST["comment_text"]);
+
+    if ($commentText !== "") {
+        $commentStmt = $pdo->prepare(
+            "INSERT INTO comments (blog_id, user_id, comment)
+             VALUES (?, ?, ?)"
+        );
+
+        $commentStmt->execute([
+            $blog_id,
+            $_SESSION["user_id"],
+            $commentText
+        ]);
+    }
+
+    header("Location: blog.php?id=" . $blog_id);
+    exit();
+}
 
 // Get blog and author
 $stmt = $pdo->prepare(
@@ -29,6 +54,17 @@ if (!$blog) {
     die("Blog post not found.");
 }
 
+$commentsStmt = $pdo->prepare(
+    "SELECT comments.*, user.username
+     FROM comments
+     INNER JOIN user ON comments.user_id = user.id
+     WHERE comments.blog_id = ?
+     ORDER BY comments.created_at ASC"
+);
+
+$commentsStmt->execute([$blog_id]);
+$comments = $commentsStmt->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 
 <!DOCTYPE html>
@@ -45,158 +81,115 @@ if (!$blog) {
         <?php echo htmlspecialchars($blog["title"]); ?>
     </title>
 
-    <style>
-
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f4f4f4;
-        }
-
-        nav {
-            background: #222;
-            padding: 15px 5%;
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-        }
-
-        .container {
-            width: 90%;
-            max-width: 800px;
-            margin: 40px auto;
-        }
-
-        .blog {
-            background: white;
-            padding: 35px;
-            border-radius: 10px;
-        }
-
-        h1 {
-            margin-top: 0;
-        }
-
-        .info {
-            color: #777;
-            margin-bottom: 30px;
-        }
-
-        .content {
-            line-height: 1.8;
-            white-space: pre-wrap;
-        }
-
-        .back {
-            display: inline-block;
-            margin-top: 25px;
-            background: #333;
-            color: white;
-            padding: 10px 15px;
-            text-decoration: none;
-            border-radius: 5px;
-        }
-
-    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
 
 </head>
 
-<body>
+<body class="blog-page">
 
 
 <nav>
 
     <a href="index.php">
-        ← My Blog
+    ← Home
     </a>
 
 </nav>
 
 
-<div class="container">
+<div class="blog-container">
 
-    <article class="blog">
+   <article class="blog-post">
 
-        <h1>
-            <?php echo htmlspecialchars($blog["title"]); ?>
-        </h1>
+       <h1>
+           <?php echo htmlspecialchars($blog["title"]); ?>
+       </h1>
+
+       <?php $coverImage = !empty($blog["image_url"]) ? $blog["image_url"] : "https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=1200&q=80"; ?>
+       <div class="featured-image" style="background-image: url('<?php echo htmlspecialchars($coverImage); ?>');"></div>
+
+       <div class="blog-meta">
+
+           By
+           <strong>
+               <?php echo htmlspecialchars($blog["username"]); ?>
+           </strong>
+
+           |
+
+           <?php
+           echo date(
+               "F j, Y",
+               strtotime($blog["created_at"])
+           );
+           ?>
+
+       </div>
 
 
-        <div class="info">
+       <div class="blog-content">
 
-            By
-            <strong>
-                <?php echo htmlspecialchars($blog["username"]); ?>
-            </strong>
+           <?php
+           echo htmlspecialchars($blog["content"]);
+           ?>
 
-            |
+       </div>
 
-            <?php
-            echo date(
-                "F j, Y",
-                strtotime($blog["created_at"])
-            );
-            ?>
+       <section class="comment-section">
+           <h2>Comments</h2>
 
-        </div>
+           <?php if (!empty($comments)): ?>
+               <div class="comment-list">
+                   <?php foreach ($comments as $comment): ?>
+                       <div class="comment-item">
+                           <div class="comment-header">
+                               <strong><?php echo htmlspecialchars($comment["username"]); ?></strong>
+                               <span><?php echo date("M d, Y", strtotime($comment["created_at"])); ?></span>
+                           </div>
+                           <p><?php echo nl2br(htmlspecialchars($comment["comment"])); ?></p>
+                       </div>
+                   <?php endforeach; ?>
+               </div>
+           <?php else: ?>
+               <p class="no-comments">No comments yet. Be the first to share your thoughts.</p>
+           <?php endif; ?>
 
+           <?php if (isset($_SESSION["user_id"])): ?>
+               <form method="POST" class="comment-form">
+                   <textarea name="comment_text" placeholder="Write your thoughts..." required></textarea>
+                   <button type="submit">Post Comment</button>
+               </form>
+           <?php else: ?>
+               <p class="comment-login-message">
+                   <a href="login.php">Login</a> to comment on this blog.
+               </p>
+           <?php endif; ?>
+       </section>
 
-        <div class="content">
+<?php $isOwner = isset($_SESSION["user_id"]) && $_SESSION["user_id"] == $blog["user_id"]; ?>
 
-            <?php
-            echo htmlspecialchars($blog["content"]);
-            ?>
+<?php if ($isOwner): ?>
 
-        </div>
-
-<?php if (isset($_SESSION["user_id"]) && $_SESSION["user_id"] == $blog["user_id"]): ?>
-
-    <a
-        href="edit.php?id=<?php echo $blog["id"]; ?>"
-        style="
-            display: inline-block;
-            margin-top: 25px;
-            background: #333;
-            color: white;
-            padding: 10px 15px;
-            text-decoration: none;
-            border-radius: 5px;
-        "
-    >
-        Edit Blog
-    </a>
-    <form
-    method="POST"
-    class="delete-form"
-    action="delete.php?id=<?php echo $blog["id"]; ?>"
-    style="display: inline;"
->
-
-    <button
-        type="submit"
-        style="
-            margin-top: 25px;
-            background: #b00020;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        "
-    >
-        Delete Blog
-    </button>
-
-</form>
+   <div class="actions">
+       <a class="edit-link" href="edit.php?id=<?php echo $blog["id"]; ?>">
+           Edit Blog
+       </a>
+       <form method="POST" class="delete-form" action="delete.php?id=<?php echo $blog["id"]; ?>">
+           <button type="submit" class="delete-button">
+               Delete Blog
+           </button>
+       </form>
+   </div>
 
 <?php endif; ?>
-        <a class="back" href="index.php">
-            ← Back to Blogs
-        </a>
+       <a class="back-link" href="index.php">
+           ← Back to Blogs
+       </a>
 
-    </article>
+   </article>
 
 </div>
 <script src="js/script.js"></script>
