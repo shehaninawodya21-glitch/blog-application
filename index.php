@@ -28,153 +28,105 @@ $blogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <title>My Blog</title>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 
 </head>
 
-<body>
+<body class="blog-list-page">
 
+<header class="topbar">
+    <div class="topbar-inner">
+        <div class="brand" aria-label="MyBlog brand">
+            <span class="brand-mark">✦</span>
+            <span>MyBlog</span>
+        </div>
 
-<!-- Navigation -->
+        <nav class="topnav" aria-label="Main navigation">
+            <a href="#fresh-stories">Home</a>
+            <a href="#posts">All Posts</a>
+        </nav>
 
-<nav>
+        <div class="auth-actions">
+            <?php if (isset($_SESSION["user_id"])): ?>
+                <span class="welcome-badge">Welcome, <?php echo htmlspecialchars($_SESSION["username"]); ?></span>
+                <a class="btn btn-primary btn-small" href="create.php">✎ Create Post</a>
+                <a class="btn btn-outline btn-small" href="logout.php">Logout</a>
+            <?php else: ?>
+                <a class="btn btn-outline btn-small" href="login.php">Login</a>
+                <a class="btn btn-primary btn-small" href="register.php">Register</a>
+            <?php endif; ?>
+        </div>
+    </div>
+</header>
 
-    <h2>My Blog</h2>
+<main class="blog-list-shell">
+    <section class="hero-panel" id="fresh-stories">
+        <div class="hero-copy">
+            <span class="eyebrow eyebrow-soft">Fresh stories</span>
+            <h1>Thoughtful writing for curious minds.</h1>
+            <p>Discover ideas, stories, and practical inspiration from writers who are building better conversations online.</p>
+            <div class="hero-actions">
+                <a class="btn btn-primary" href="create.php">✎ Create Post</a>
+                <a class="btn btn-outline" href="#posts">→ Explore Posts</a>
+            </div>
+        </div>
 
-    <div>
+        <div class="featured-panel">
+            <?php if (!empty($blogs)): ?>
+                <?php $featured = $blogs[0]; ?>
+                <?php $featuredImage = !empty($featured["image_url"]) ? $featured["image_url"] : "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?auto=format&fit=crop&w=1200&q=80"; ?>
+                <div class="featured-image" style="background-image: url('<?php echo htmlspecialchars($featuredImage); ?>');"></div>
+                <div class="featured-content">
+                    <span class="featured-label">Featured post</span>
+                    <h2><?php echo htmlspecialchars($featured["title"]); ?></h2>
+                    <p>By <?php echo htmlspecialchars($featured["username"]); ?> · <?php echo date("M d, Y", strtotime($featured["created_at"])); ?></p>
+                    <a href="blog.php?id=<?php echo $featured["id"]; ?>" class="btn btn-primary btn-small">Read story</a>
+                </div>
+            <?php else: ?>
+                <div class="featured-empty">No posts yet. Be the first to publish.</div>
+            <?php endif; ?>
+        </div>
+    </section>
 
-        <?php if (isset($_SESSION["user_id"])): ?>
-
-            <span>
-                Welcome,
-                <?php echo htmlspecialchars($_SESSION["username"]); ?>
-            </span>
-
-            <a href="create.php">Create Blog</a>
-
-            <a href="logout.php">Logout</a>
-
-        <?php else: ?>
-
-            <a href="login.php">Login</a>
-
-            <a href="register.php">Register</a>
-
-        <?php endif; ?>
-
+    <div class="list-topbar" id="posts">
+        <div>
+            <span class="section-kicker">Latest</span>
+            <h2>All stories</h2>
+        </div>
+        <a class="view-all" href="create.php">✎ Create Post</a>
     </div>
 
-</nav>
+    <div class="blog-grid">
+        <?php if (!empty($blogs)): ?>
+            <?php foreach ($blogs as $blog): ?>
+                <?php $coverImage = !empty($blog["image_url"]) ? $blog["image_url"] : "https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=1200&q=80"; ?>
+                <article class="post-card">
+                    <div class="post-image" style="background-image: url('<?php echo htmlspecialchars($coverImage); ?>');"></div>
 
+                    <div class="post-body">
+                        <span class="post-tag">Writing</span>
+                        <h3>
+                            <a href="blog.php?id=<?php echo $blog["id"]; ?>"><?php echo htmlspecialchars($blog["title"]); ?></a>
+                        </h3>
 
-<!-- Main Content -->
+                        <div class="author-row">
+                            <span class="author-badge"><?php echo strtoupper(substr(htmlspecialchars($blog["username"]), 0, 1)); ?></span>
+                            <span class="author-name"><?php echo htmlspecialchars($blog["username"]); ?></span>
+                            <span class="date-text"><?php echo date("M d, Y", strtotime($blog["created_at"])); ?></span>
+                        </div>
 
-<div class="container">
-
-
-    <?php if (isset($_SESSION["user_id"])): ?>
-
-        <div class="welcome">
-
-            <h2>
-                Welcome,
-                <?php echo htmlspecialchars($_SESSION["username"]); ?>!
-            </h2>
-
-            <p>
-                Share your thoughts by creating a new blog post.
-            </p>
-
-            <a class="create-button" href="create.php">
-                + Create New Blog
-            </a>
-
-        </div>
-
-    <?php endif; ?>
-
-
-    <h1>Latest Blog Posts</h1>
-
-
-    <?php if (count($blogs) > 0): ?>
-
-
-        <?php foreach ($blogs as $blog): ?>
-
-            <div class="blog-card">
-
-                <h2>
-                    <?php echo htmlspecialchars($blog["title"]); ?>
-                </h2>
-
-
-                <div class="blog-info">
-
-                    By
-                    <?php echo htmlspecialchars($blog["username"]); ?>
-
-                    |
-
-                    <?php
-                    echo date(
-                        "F j, Y",
-                        strtotime($blog["created_at"])
-                    );
-                    ?>
-
-                </div>
-
-
-                <p>
-
-                    <?php
-
-                    $preview = substr(
-                        strip_tags($blog["content"]),
-                        0,
-                        200
-                    );
-
-                    echo htmlspecialchars($preview);
-
-                    if (strlen($blog["content"]) > 200) {
-                        echo "...";
-                    }
-
-                    ?>
-
-                </p>
-
-
-                <a
-                    class="read-more"
-                    href="blog.php?id=<?php echo $blog["id"]; ?>"
-                >
-                    Read More
-                </a>
-
-            </div>
-
-        <?php endforeach; ?>
-
-
-    <?php else: ?>
-
-
-        <div class="no-blogs">
-
-            <h2>No blog posts yet.</h2>
-
-            <p>Be the first person to create a blog!</p>
-
-        </div>
-
-
-    <?php endif; ?>
-
-
-</div>
+                        <a class="btn btn-primary btn-small read-more-btn" href="blog.php?id=<?php echo $blog["id"]; ?>">Read More →</a>
+                    </div>
+                </article>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <div class="empty-state">No blogs yet. Be the first to write one.</div>
+        <?php endif; ?>
+    </div>
+</main>
 
 </body>
 

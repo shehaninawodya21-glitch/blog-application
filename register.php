@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 require_once "config/database.php";
 
 $message = "";
@@ -42,7 +44,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 "user"
             ]);
 
-            $message = "Registration successful!";
+            $userId = $pdo->lastInsertId();
+
+            $_SESSION["user_id"] = $userId;
+            $_SESSION["username"] = $username;
+            $_SESSION["role"] = "user";
+
+            header("Location: index.php");
+            exit();
         }
     }
 }
@@ -57,92 +66,55 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <title>Register - My Blog</title>
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f2f2f2;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-
-        .register-box {
-            background: white;
-            padding: 30px;
-            width: 350px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-
-        h2 {
-            text-align: center;
-        }
-
-        input {
-            width: 100%;
-            padding: 10px;
-            margin: 8px 0 15px 0;
-            box-sizing: border-box;
-        }
-
-        button {
-            width: 100%;
-            padding: 10px;
-            background: #333;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background: #555;
-        }
-
-        .message {
-            text-align: center;
-            margin-bottom: 15px;
-            color: green;
-        }
-
-        .login-link {
-            text-align: center;
-            margin-top: 15px;
-        }
-    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
 
 </head>
 
-<body>
+<body class="auth-page">
 
-<div class="register-box">
+<div class="auth-shell">
 
-    <h2>Create Account</h2>
-
-    <?php if (!empty($message)): ?>
-        <div class="message">
-            <?php echo htmlspecialchars($message); ?>
+    <div class="auth-visual">
+        <div class="auth-visual-content">
+            <span class="eyebrow">Join now</span>
+            <h2>Start publishing your ideas today.</h2>
+            <p>Create your account and build a community around your stories.</p>
         </div>
-    <?php endif; ?>
+    </div>
 
-    <form method="POST">
+    <div class="register-box auth-box">
 
-        <label>Username</label>
-        <input type="text" name="username" required>
+        <h2>Create Account</h2>
 
-        <label>Email</label>
-        <input type="email" name="email" required>
+        <?php if (!empty($message)): ?>
+            <div class="auth-message">
+                <?php echo htmlspecialchars($message); ?>
+            </div>
+        <?php endif; ?>
 
-        <label>Password</label>
-        <input type="password" name="password" required>
+        <form method="POST">
 
-        <button type="submit">Register</button>
+            <label>Username</label>
+            <input type="text" name="username" required>
 
-    </form>
+            <label>Email</label>
+            <input type="email" name="email" required>
 
-    <div class="login-link">
-        Already have an account?
-        <a href="login.php">Login</a>
+            <label>Password</label>
+            <input type="password" name="password" required>
+
+            <button type="submit">Register</button>
+
+        </form>
+
+        <div class="auth-link">
+            Already have an account?
+            <a href="login.php">Login</a>
+        </div>
+
     </div>
 
 </div>

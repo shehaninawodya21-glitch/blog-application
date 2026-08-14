@@ -55,141 +55,74 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <title>Login - My Blog</title>
 
-    <style>
-
-        body {
-            font-family: Arial, sans-serif;
-            background: #f2f2f2;
-
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-            min-height: 100vh;
-        }
-
-        .login-box {
-
-            background: white;
-
-            padding: 30px;
-
-            width: 350px;
-
-            border-radius: 10px;
-
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-
-        h2 {
-            text-align: center;
-        }
-
-        label {
-            display: block;
-            margin-top: 10px;
-        }
-
-        input {
-
-            width: 100%;
-
-            padding: 10px;
-
-            margin-top: 5px;
-            margin-bottom: 15px;
-
-            box-sizing: border-box;
-        }
-
-        button {
-
-            width: 100%;
-
-            padding: 10px;
-
-            background: #333;
-
-            color: white;
-
-            border: none;
-
-            cursor: pointer;
-        }
-
-        button:hover {
-            background: #555;
-        }
-
-        .message {
-
-            text-align: center;
-
-            color: red;
-
-            margin-bottom: 15px;
-        }
-
-        .register-link {
-
-            text-align: center;
-
-            margin-top: 15px;
-        }
-
-    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
 
 </head>
 
-<body>
+<body class="auth-page">
 
-<div class="login-box">
+<div class="auth-shell">
 
-    <h2>Login</h2>
-
-    <?php if (!empty($message)): ?>
-
-        <div class="message">
-            <?php echo htmlspecialchars($message); ?>
+    <div class="auth-visual">
+        <div class="auth-visual-content">
+            <span class="eyebrow">Welcome back</span>
+            <h2>Share your story with the world.</h2>
+            <p>Write, publish, and inspire readers every day.</p>
         </div>
+    </div>
 
-    <?php endif; ?>
+    <div class="login-box auth-box">
 
+        <h2>Login</h2>
 
-    <form method="POST">
+        <?php if (!empty($message)): ?>
 
-        <label>Email</label>
+            <div class="message">
+                <?php echo htmlspecialchars($message); ?>
+            </div>
 
-        <input
-            type="email"
-            name="email"
-            required
-        >
-
-
-        <label>Password</label>
-
-        <input
-            type="password"
-            name="password"
-            required
-        >
+        <?php endif; ?>
 
 
-        <button type="submit">
-            Login
-        </button>
+        <form method="POST">
 
-    </form>
+            <label>Email</label>
+
+            <input
+                type="email"
+                name="email"
+                required
+            >
 
 
-    <div class="register-link">
+            <label>Password</label>
 
-        Don't have an account?
+            <input
+                type="password"
+                name="password"
+                required
+            >
 
-        <a href="register.php">
-            Register
-        </a>
+
+            <button type="submit">
+                Login
+            </button>
+
+        </form>
+
+
+        <div class="auth-link">
+
+            Don't have an account?
+
+            <a href="register.php">
+                Register
+            </a>
+
+        </div>
 
     </div>
 
