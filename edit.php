@@ -84,8 +84,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
-    <title>Edit Blog</title>
+    <title>Edit Blog - My Blog</title>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 
 </head>
@@ -113,6 +116,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             type="text"
             name="title"
             value="<?php echo htmlspecialchars($blog["title"]); ?>"
+            placeholder="Enter your blog title"
             required
         >
 
@@ -129,20 +133,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <textarea
             name="content"
+            placeholder="Write your blog here..."
             required
         ><?php echo htmlspecialchars($blog["content"]); ?></textarea>
 
+        <div class="actions-row">
+            <button type="submit">
+                Update Blog ✎
+            </button>
 
-        <button type="submit">
-            Update Blog
-        </button>
+            <a class="btn btn-outline" href="blog.php?id=<?php echo $blog_id; ?>">
+                ← Cancel
+            </a>
+        </div>
 
     </form>
-
-
-    <a class="back-link" href="blog.php?id=<?php echo $blog_id; ?>">
-        ← Cancel
-    </a>
 
 </div>
 
