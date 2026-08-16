@@ -84,7 +84,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
-    <title>Edit Blog</title>
+    <title>Edit Blog | MyBlog</title>
 
     <link rel="stylesheet" href="css/style.css">
 
@@ -92,57 +92,128 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body class="form-page">
 
-<div class="form-container">
+<div class="edit-shell">
 
-    <h1>Edit Blog</h1>
+    <div class="edit-card">
 
-    <?php if (!empty($message)): ?>
+        <div class="edit-content">
 
-        <div class="message">
-            <?php echo htmlspecialchars($message); ?>
+            <h1 class="edit-heading">
+                Edit your story.
+            </h1>
+
+            <p class="edit-subtitle">
+                <span class="edit-sub-phrase">
+                    Refine it.
+                </span>
+
+                <span class="edit-sub-desc">
+                    Update your title, image and content,
+                    then save your changes.
+                </span>
+            </p>
+
+
+            <?php if (!empty($message)): ?>
+
+                <div class="message">
+                    <?php echo htmlspecialchars($message); ?>
+                </div>
+
+            <?php endif; ?>
+
+
+            <form method="POST">
+
+
+                <!-- BLOG TITLE -->
+
+                <div class="form-group">
+
+                    <label for="title">
+                        Blog Title
+                    </label>
+
+                    <input
+                        type="text"
+                        id="title"
+                        name="title"
+                        value="<?php echo htmlspecialchars($blog["title"]); ?>"
+                        placeholder="Enter your blog title"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- IMAGE URL -->
+
+                <div class="form-group">
+
+                    <label for="image_url">
+                        Blog Cover Image URL
+                    </label>
+
+                    <input
+                        type="url"
+                        id="image_url"
+                        name="image_url"
+                        value="<?php echo htmlspecialchars($blog["image_url"] ?? ""); ?>"
+                        placeholder="https://example.com/image.jpg"
+                    >
+
+                    <div class="field-help">
+                        Add an image URL to make your blog more attractive.
+                    </div>
+
+                </div>
+
+
+                <!-- BLOG CONTENT -->
+
+                <div class="form-group">
+
+                    <label for="content">
+                        Blog Content
+                    </label>
+
+                    <textarea
+                        id="content"
+                        name="content"
+                        placeholder="Write your story here..."
+                        required
+                    ><?php echo htmlspecialchars($blog["content"]); ?></textarea>
+
+                </div>
+
+
+                <!-- BUTTONS -->
+
+                <div class="actions-row">
+
+                    <button
+                        type="submit"
+                        class="publish-btn"
+                    >
+                        ✓ Update Blog
+                    </button>
+
+
+                    <a
+                        href="blog.php?id=<?php echo $blog_id; ?>"
+                        class="back-btn"
+                    >
+                        ← Cancel
+                    </a>
+
+                </div>
+
+
+            </form>
+
         </div>
 
-    <?php endif; ?>
-
-
-    <form method="POST">
-
-        <label>Blog Title</label>
-
-        <input
-            type="text"
-            name="title"
-            value="<?php echo htmlspecialchars($blog["title"]); ?>"
-            required
-        >
-
-        <label>Blog Cover Image URL (optional)</label>
-
-        <input
-            type="url"
-            name="image_url"
-            value="<?php echo htmlspecialchars($blog["image_url"] ?? ""); ?>"
-            placeholder="https://example.com/image.jpg"
-        >
-
-        <label>Blog Content</label>
-
-        <textarea
-            name="content"
-            required
-        ><?php echo htmlspecialchars($blog["content"]); ?></textarea>
-
-
-        <button type="submit">
-            Update Blog
-        </button>
-
-    </form>
-
-
-    <a class="back-link" href="blog.php?id=<?php echo $blog_id; ?>">
-        ← Cancel
-    </a>
+    </div>
 
 </div>
 

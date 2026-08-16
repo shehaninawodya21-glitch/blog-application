@@ -29,6 +29,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
              VALUES (?, ?, ?, ?)"
         );
 
+        // If user entered a URL without scheme, prefix http:// for convenience
+        if ($imageUrl !== "" && !preg_match('#^https?://#i', $imageUrl)) {
+            $imageUrl = 'http://' . $imageUrl;
+        }
+
         $stmt->execute([
             $_SESSION["user_id"],
             $title,
@@ -36,7 +41,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $imageUrl !== "" ? $imageUrl : null
         ]);
 
-        header("Location: index.php");
+        // Redirect to the newly created blog so the user can immediately see the image
+        $newId = $pdo->lastInsertId();
+        header("Location: blog.php?id=" . $newId);
         exit();
     }
 }
@@ -53,7 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
-    <title>Create Blog - My Blog</title>
+    <title>Create Blog - BlogNest</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -64,57 +71,48 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body class="form-page">
 
-<div class="form-container">
+<div class="create-shell">
 
-    <h1>Create New Blog</h1>
+    <div class="create-panel">
 
-    <?php if (!empty($message)): ?>
+        <div class="create-side">
+            <div class="form-container">
+                <h1 class="create-heading">Ready to start your story?</h1>
+                <p class="create-sub"><span class="create-sub-phrase">share your thoughts,ideas and experiences</span><span class="divider"></span><span class="create-sub-highlight">Write Something that Matters</span></p>
 
-        <div class="message">
-            <?php echo htmlspecialchars($message); ?>
+                <?php if (!empty($message)): ?>
+
+                    <div class="message">
+                        <?php echo htmlspecialchars($message); ?>
+                    </div>
+
+                <?php endif; ?>
+
+                <form method="POST">
+
+                    <label for="title">Full title</label>
+                    <input id="title" type="text" name="title" placeholder="Enter your blog title" required>
+
+                    <label for="image_url">Cover image URL (optional)</label>
+                    <input id="image_url" type="url" name="image_url" placeholder="https://example.com/image.jpg">
+                    <div class="field-help">Paste a direct image URL (jpg, png) to use as the post cover. Leave empty to use the site default.</div>
+
+                    <label for="content">Your story</label>
+                    <textarea id="content" name="content" placeholder="Write your blog here..." required></textarea>
+
+                    <div class="actions-row">
+                        <button type="submit" class="publish-btn">Publish Blog ✎</button>
+                        <a class="back-btn" href="index.php"> Back to Home</a>
+                    </div>
+
+                </form>
+            </div>
         </div>
 
-    <?php endif; ?>
-
-
-    <form method="POST">
-
-        <label>Blog Title</label>
-
-        <input
-            type="text"
-            name="title"
-            placeholder="Enter your blog title"
-            required
-        >
-
-        <label>Blog Cover Image URL (optional)</label>
-
-        <input
-            type="url"
-            name="image_url"
-            placeholder="https://example.com/image.jpg"
-        >
-
-        <label>Blog Content</label>
-
-        <textarea
-            name="content"
-            placeholder="Write your blog here..."
-            required
-        ></textarea>
-
-        <div class="actions-row">
-            <button type="submit">
-                Publish Blog ✎
-            </button>
-
-            <a class="btn btn-outline" href="index.php">
-                ← Back to Home
-            </a>
+        <div class="create-visual" aria-hidden="true" style="background-image: url('assets/images/canva-create-1600w.jpg');">
         </div>
 
-    </form>
+    </div>
 
 </div>
 

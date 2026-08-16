@@ -53,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
-    <title>Login - My Blog</title>
+    <title>Login - BlogNest</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -76,52 +76,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <div class="login-box auth-box">
 
-        <h2>Login</h2>
+        <div class="login-inner">
+            <h2>Welcome back to BlogNest</h2>
+            <p class="login-sub">Please enter your details</p>
 
-        <?php if (!empty($message)): ?>
+            <?php if (!empty($message)): ?>
+                <div class="message">
+                    <?php echo htmlspecialchars($message); ?>
+                </div>
+            <?php endif; ?>
 
-            <div class="message">
-                <?php echo htmlspecialchars($message); ?>
+            <form method="POST">
+
+                <label>Email address</label>
+                <input type="email" name="email" required>
+
+                <label>Password</label>
+                <input type="password" name="password" required>
+
+                <div style="height:12px"></div>
+
+                <button type="submit" class="btn btn-primary btn-full">Sign in</button>
+
+            </form>
+
+            <div class="auth-link" style="margin-top:18px; text-align:center;">
+                Don't have an account? <a href="register.php">Sign up</a>
             </div>
-
-        <?php endif; ?>
-
-
-        <form method="POST">
-
-            <label>Email</label>
-
-            <input
-                type="email"
-                name="email"
-                required
-            >
-
-
-            <label>Password</label>
-
-            <input
-                type="password"
-                name="password"
-                required
-            >
-
-
-            <button type="submit">
-                Login
-            </button>
-
-        </form>
-
-
-        <div class="auth-link">
-
-            Don't have an account?
-
-            <a href="register.php">
-                Register
-            </a>
-
         </div>
 
     </div>
