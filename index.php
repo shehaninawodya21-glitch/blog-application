@@ -26,7 +26,7 @@ $blogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
-    <title>My Blog</title>
+    <title>BlogNest</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -39,9 +39,9 @@ $blogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <header class="topbar">
     <div class="topbar-inner">
-        <div class="brand" aria-label="MyBlog brand">
+        <div class="brand" aria-label="BlogNest brand">
             <span class="brand-mark">✦</span>
-            <span>MyBlog</span>
+            <span>BlogNest</span>
         </div>
 
         <nav class="topnav" aria-label="Main navigation">
@@ -70,7 +70,7 @@ $blogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <p>Discover ideas, stories, and practical inspiration from writers who are building better conversations online.</p>
             <div class="hero-actions">
                 <a class="btn btn-primary" href="create.php">✎ Create Post</a>
-                <a class="btn btn-outline" href="#posts">→ Explore Posts</a>
+                <a class="btn btn-outline" href="#posts">Explore Posts</a>
             </div>
         </div>
 
@@ -104,7 +104,9 @@ $blogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <?php foreach ($blogs as $blog): ?>
                 <?php $coverImage = !empty($blog["image_url"]) ? $blog["image_url"] : "https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=1200&q=80"; ?>
                 <article class="post-card">
-                    <div class="post-image" style="background-image: url('<?php echo htmlspecialchars($coverImage); ?>');"></div>
+                    <div class="post-image">
+                        <img src="<?php echo htmlspecialchars($coverImage); ?>" alt="<?php echo htmlspecialchars($blog["title"]); ?> cover" loading="lazy">
+                    </div>
 
                     <div class="post-body">
                         <span class="post-tag">Writing</span>
@@ -127,6 +129,10 @@ $blogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <?php endif; ?>
     </div>
 </main>
+
+<footer class="site-footer" role="contentinfo">
+    <div class="footer-bar">© 2026 BlogNest — All rights reserved.</div>
+</footer>
 
 </body>
 

@@ -65,6 +65,12 @@ $commentsStmt = $pdo->prepare(
 $commentsStmt->execute([$blog_id]);
 $comments = $commentsStmt->fetchAll(PDO::FETCH_ASSOC);
 
+// find previous post (by created_at)
+$prevStmt = $pdo->prepare("SELECT id FROM blogPost WHERE created_at < ? ORDER BY created_at DESC LIMIT 1");
+$prevStmt->execute([$blog['created_at']]);
+$prev = $prevStmt->fetch(PDO::FETCH_ASSOC);
+$prevId = $prev ? $prev['id'] : null;
+
 ?>
 
 <!DOCTYPE html>
@@ -108,7 +114,7 @@ $comments = $commentsStmt->fetchAll(PDO::FETCH_ASSOC);
            <?php echo htmlspecialchars($blog["title"]); ?>
        </h1>
 
-       <?php $coverImage = !empty($blog["image_url"]) ? $blog["image_url"] : "https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=1200&q=80"; ?>
+       <?php $coverImage = !empty($blog["image_url"]) ? $blog["image_url"] : "assets/images/fixed-blog-image.jpg"; ?>
        <div class="featured-image" style="background-image: url('<?php echo htmlspecialchars($coverImage); ?>');"></div>
 
        <div class="blog-meta">
@@ -160,7 +166,7 @@ $comments = $commentsStmt->fetchAll(PDO::FETCH_ASSOC);
            <?php if (isset($_SESSION["user_id"])): ?>
                <form method="POST" class="comment-form">
                    <textarea name="comment_text" placeholder="Write your thoughts..." required></textarea>
-                   <button type="submit">Post Comment</button>
+                   <button type="submit" class="btn btn-primary">Post Comment</button>
                </form>
            <?php else: ?>
                <p class="comment-login-message">
@@ -171,27 +177,29 @@ $comments = $commentsStmt->fetchAll(PDO::FETCH_ASSOC);
 
 <?php $isOwner = isset($_SESSION["user_id"]) && $_SESSION["user_id"] == $blog["user_id"]; ?>
 
-<?php if ($isOwner): ?>
+<div class="actions">
+    <?php if ($prevId): ?>
+        <a class="btn btn-secondary" href="blog.php?id=<?php echo $prevId; ?>"> Previous</a>
+    <?php endif; ?>
 
-   <div class="actions">
-       <a class="edit-link" href="edit.php?id=<?php echo $blog["id"]; ?>">
-           Edit Blog
-       </a>
-       <form method="POST" class="delete-form" action="delete.php?id=<?php echo $blog["id"]; ?>">
-           <button type="submit" class="delete-button">
-               Delete Blog
-           </button>
-       </form>
-   </div>
+    <?php if ($isOwner): ?>
+        <a class="edit-link btn btn-secondary" href="edit.php?id=<?php echo $blog["id"]; ?>">Edit Blog</a>
+        <form method="POST" class="delete-form" action="delete.php?id=<?php echo $blog["id"]; ?>" style="display:inline;">
+            <button type="submit" class="delete-button btn btn-danger">Delete Blog</button>
+        </form>
+    <?php endif; ?>
 
-<?php endif; ?>
-       <a class="back-link" href="index.php">
-           ← Back to Blogs
-       </a>
+    <a class="back-link btn btn-secondary" href="index.php"> Back to Blogs</a>
+</div>
 
    </article>
 
 </div>
+
+<footer class="site-footer" role="contentinfo">
+    <div class="footer-bar">© 2026 BlogNest — All rights reserved.</div>
+</footer>
+
 <script src="js/script.js"></script>
 </body>
 
