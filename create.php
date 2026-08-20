@@ -201,7 +201,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </div>
 
-        <div class="create-visual" aria-hidden="true" style="background-image: url('assets/images/canva-create-1600w.jpg');">
+        <div class="create-visual" aria-hidden="true">
+            <img
+                src="assets/images/canva-create-1600w.jpg"
+                alt="Girl writing a blog in a notebook"
+                class="create-illustration"
+            >
         </div>
 
     </div>
