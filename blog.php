@@ -138,11 +138,19 @@ $prevId = $prev ? $prev['id'] : null;
 
        <div class="blog-content">
 
-           <?php
-           echo htmlspecialchars($blog["content"]);
-           ?>
+    <?php
+    $content = $blog["content"];
 
-       </div>
+    // Allow only formatting tags created by the editor
+    $content = strip_tags(
+        $content,
+        '<p><br><strong><b><em><i><u><span><div><ul><ol><li><a>'
+    );
+
+    echo $content;
+    ?>
+
+</div>
 
        <section class="comment-section">
            <h2>Comments</h2>

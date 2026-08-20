@@ -31,6 +31,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION["username"] = $user["username"];
             $_SESSION["role"] = $user["role"];
 
+            if (isset($_POST["remember"])) {
+
+    setcookie(
+        "remember_email",
+        $email,
+        time() + (86400 * 30),
+        "/"
+    );
+
+}
+
             header("Location: index.php");
             exit();
 
@@ -89,10 +100,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <form method="POST">
 
                 <label>Email address</label>
-                <input type="email" name="email" required>
+               <input
+    type="email"
+    name="email"
+    value="<?php echo htmlspecialchars($_COOKIE["remember_email"] ?? ""); ?>"
+    placeholder="Email"
+    required
+>
 
                 <label>Password</label>
                 <input type="password" name="password" required>
+
+            <label class="remember-me">
+    <input
+        type="checkbox"
+        name="remember"
+        <?php echo isset($_COOKIE["remember_email"]) ? "checked" : ""; ?>
+    >
+    Remember my email
+</label>
 
                 <div style="height:12px"></div>
 

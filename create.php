@@ -96,9 +96,101 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <label for="image_url">Cover image URL (optional)</label>
                     <input id="image_url" type="url" name="image_url" placeholder="https://example.com/image.jpg">
                     <div class="field-help">Paste a direct image URL (jpg, png) to use as the post cover. Leave empty to use the site default.</div>
+ 
+                    <label for="richEditor">Your story</label>
 
-                    <label for="content">Your story</label>
-                    <textarea id="content" name="content" placeholder="Write your blog here..." required></textarea>
+<div class="editor-wrapper">
+
+    <div class="editor-toolbar">
+
+        <button type="button" onclick="formatText('bold')" title="Bold">
+            <b>B</b>
+        </button>
+
+        <button type="button" onclick="formatText('italic')" title="Italic">
+            <i>I</i>
+        </button>
+
+        <button type="button" onclick="formatText('underline')" title="Underline">
+            <u>U</u>
+        </button>
+
+        <span class="toolbar-divider"></span>
+
+        <label class="color-tool" title="Text color">
+            A
+            <input type="color"
+                   id="textColor"
+                   value="#000000"
+                   onchange="changeTextColor(this.value)">
+        </label>
+
+        <label class="color-tool" title="Highlight">
+            🖍
+            <input type="color"
+                   id="highlightColor"
+                   value="#fff59d"
+                   onchange="changeHighlight(this.value)">
+        </label>
+
+        <span class="toolbar-divider"></span>
+
+        <select onchange="changeFontSize(this.value)">
+            <option value="">Size</option>
+            <option value="1">Small</option>
+            <option value="3">Normal</option>
+            <option value="5">Large</option>
+            <option value="7">Huge</option>
+        </select>
+
+        <button type="button" onclick="formatText('justifyLeft')">
+            ≡
+        </button>
+
+        <button type="button" onclick="formatText('justifyCenter')">
+            ≡
+        </button>
+
+        <button type="button" onclick="formatText('justifyRight')">
+            ≡
+        </button>
+
+        <button type="button"
+                onclick="formatText('insertUnorderedList')">
+            • List
+        </button>
+
+        <button type="button"
+                onclick="formatText('insertOrderedList')">
+            1. List
+        </button>
+
+        <button type="button" onclick="addLink()">
+            🔗
+        </button>
+
+    </div>
+
+
+    <!-- THIS IS THE ACTUAL TYPING BOX -->
+
+    <div
+        id="richEditor"
+        class="rich-editor"
+        contenteditable="true"
+        data-placeholder="Write your blog here..."
+    ></div>
+
+
+    <!-- Hidden field sent to PHP -->
+
+    <input
+        type="hidden"
+        name="content"
+        id="content"
+    >
+
+</div>
 
                     <div class="actions-row">
                         <button type="submit" class="publish-btn">Publish Blog ✎</button>
@@ -115,6 +207,97 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
 
 </div>
+
+<script>
+
+const editor = document.getElementById("richEditor");
+const contentInput = document.getElementById("content");
+
+
+function formatText(command) {
+
+    editor.focus();
+
+    document.execCommand(command, false, null);
+
+}
+
+
+function changeTextColor(color) {
+
+    editor.focus();
+
+    document.execCommand("foreColor", false, color);
+
+}
+
+
+function changeHighlight(color) {
+
+    editor.focus();
+
+    document.execCommand("hiliteColor", false, color);
+
+}
+
+
+function changeFontSize(size) {
+
+    if (!size) {
+        return;
+    }
+
+    editor.focus();
+
+    document.execCommand("fontSize", false, size);
+
+}
+
+
+function addLink() {
+
+    editor.focus();
+
+    const url = prompt("Enter website URL:");
+
+    if (url) {
+
+        document.execCommand(
+            "createLink",
+            false,
+            url
+        );
+
+    }
+
+}
+
+
+/* Send formatted HTML to PHP */
+
+document.querySelector("form").addEventListener(
+    "submit",
+    function(event) {
+
+        const text = editor.innerText.trim();
+
+        if (text === "") {
+
+            event.preventDefault();
+
+            alert("Please write something in your blog.");
+
+            editor.focus();
+
+            return;
+        }
+
+        contentInput.value = editor.innerHTML;
+
+    }
+);
+
+</script>
 
 </body>
 

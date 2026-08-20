@@ -1613,3 +1613,1077 @@ body.blog-page {
     }
 
 }
+
+
+/* =========================================
+   RICH TEXT BLOG EDITOR
+   ========================================= */
+
+.editor-wrapper {
+    width: 100%;
+    margin-top: 8px;
+    border: 1px solid #d9d9d9;
+    border-radius: 12px;
+    background: #ffffff;
+    overflow: hidden;
+}
+
+
+/* Toolbar */
+
+.editor-toolbar {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 5px;
+    padding: 9px 10px;
+    background: #f7f7f7;
+    border-bottom: 1px solid #dddddd;
+}
+
+
+/* Toolbar buttons */
+
+.editor-toolbar button {
+    min-width: 34px;
+    height: 34px;
+    padding: 5px 9px;
+
+    border: 1px solid transparent;
+    border-radius: 6px;
+
+    background: transparent;
+    color: #333;
+
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease;
+}
+
+
+.editor-toolbar button:hover {
+    background: #e9e9e9;
+    border-color: #d0d0d0;
+}
+
+
+/* Divider */
+
+.toolbar-divider {
+    width: 1px;
+    height: 25px;
+    background: #d5d5d5;
+    margin: 0 4px;
+}
+
+
+/* Font size */
+
+.editor-toolbar select {
+    height: 34px;
+    padding: 4px 8px;
+
+    border: 1px solid #d5d5d5;
+    border-radius: 6px;
+
+    background: white;
+    color: #333;
+
+    cursor: pointer;
+}
+
+
+/* Color buttons */
+
+.color-tool {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 34px;
+    height: 34px;
+
+    border-radius: 6px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+
+.color-tool:hover {
+    background: #e9e9e9;
+}
+
+
+.color-tool input[type="color"] {
+    position: absolute;
+
+    width: 1px;
+    height: 1px;
+
+    opacity: 0;
+}
+
+
+/* Rich editor */
+
+.rich-editor {
+    min-height: 280px;
+
+    padding: 18px;
+
+    outline: none;
+
+    background: #ffffff;
+
+    color: #222;
+
+    font-family:
+        Inter,
+        Arial,
+        sans-serif;
+
+    font-size: 16px;
+
+    line-height: 1.7;
+
+    overflow-y: auto;
+}
+
+
+/* Placeholder */
+
+.rich-editor:empty::before {
+    content: attr(data-placeholder);
+
+    color: #999;
+
+    pointer-events: none;
+}
+
+
+/* Editor headings */
+
+.rich-editor h1,
+.rich-editor h2,
+.rich-editor h3 {
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+
+/* Editor paragraphs */
+
+.rich-editor p {
+    margin: 0 0 12px;
+}
+
+
+/* Lists */
+
+.rich-editor ul,
+.rich-editor ol {
+    padding-left: 25px;
+}
+
+
+/* Links */
+
+.rich-editor a {
+    color: #2563eb;
+    text-decoration: underline;
+}
+
+
+/* Mobile */
+
+@media (max-width: 700px) {
+
+    .editor-toolbar {
+        gap: 3px;
+        padding: 7px;
+    }
+
+    .editor-toolbar button {
+        min-width: 30px;
+        height: 30px;
+        padding: 4px 7px;
+    }
+
+    .toolbar-divider {
+        height: 20px;
+    }
+
+    .rich-editor {
+        min-height: 230px;
+        padding: 14px;
+    }
+
+}
+
+
+
+
+
+/* =========================================
+   RICH TEXT BLOG EDITOR
+========================================= */
+
+.editor-wrapper {
+    width: 100%;
+    margin-top: 8px;
+}
+
+.editor-toolbar {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+
+    padding: 10px;
+
+    background: #f7f7f5;
+
+    border: 1px solid #dcdcd7;
+    border-bottom: none;
+
+    border-radius: 10px 10px 0 0;
+}
+
+.editor-toolbar button {
+    min-width: 36px;
+    height: 34px;
+
+    padding: 5px 9px;
+
+    border: 1px solid #d5d5d0;
+    border-radius: 6px;
+
+    background: white;
+
+    cursor: pointer;
+
+    font-size: 14px;
+}
+
+.editor-toolbar button:hover {
+    background: #eef7e8;
+}
+
+.editor-toolbar select {
+    height: 34px;
+
+    padding: 4px 8px;
+
+    border: 1px solid #d5d5d0;
+    border-radius: 6px;
+
+    background: white;
+
+    cursor: pointer;
+}
+
+.toolbar-divider {
+    width: 1px;
+    height: 25px;
+
+    background: #d0d0ca;
+
+    margin: 0 3px;
+}
+
+.color-tool {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 36px;
+    height: 34px;
+
+    border: 1px solid #d5d5d0;
+    border-radius: 6px;
+
+    background: white;
+
+    cursor: pointer;
+
+    font-weight: bold;
+}
+
+.color-tool input {
+    position: absolute;
+
+    opacity: 0;
+
+    width: 1px;
+    height: 1px;
+}
+
+
+/* =========================================
+   ACTUAL WRITING BOX
+========================================= */
+
+.rich-editor {
+    width: 100%;
+
+    min-height: 280px;
+
+    box-sizing: border-box;
+
+    padding: 18px;
+
+    background: #ffffff;
+
+    border: 1px solid #dcdcd7;
+
+    border-radius: 0 0 10px 10px;
+
+    outline: none;
+
+    font-family: Inter, Arial, sans-serif;
+
+    font-size: 16px;
+
+    line-height: 1.7;
+
+    color: #222;
+
+    overflow-y: auto;
+
+    white-space: pre-wrap;
+
+    word-wrap: break-word;
+}
+
+
+/* When user clicks inside */
+
+.rich-editor:focus {
+    border-color: #8bcf68;
+
+    box-shadow: 0 0 0 3px rgba(139, 207, 104, 0.12);
+}
+
+
+/* Placeholder */
+
+.rich-editor:empty::before {
+    content: attr(data-placeholder);
+
+    color: #999;
+
+    pointer-events: none;
+}
+
+
+/* Formatting inside editor */
+
+.rich-editor p {
+    margin: 0 0 12px;
+}
+
+.rich-editor ul,
+.rich-editor ol {
+    padding-left: 25px;
+}
+
+.rich-editor a {
+    color: #4d8c3a;
+
+    text-decoration: underline;
+}
+
+
+/* ================================
+   ACTUAL BLOG TYPING AREA
+   ================================ */
+
+.rich-editor {
+    display: block !important;
+    width: 100% !important;
+    min-height: 350px !important;
+    height: 350px !important;
+
+    padding: 15px !important;
+
+    box-sizing: border-box !important;
+
+    border: 1px solid #d6d6d6 !important;
+    border-radius: 10px !important;
+
+    background-color: #ffffff !important;
+
+    color: #222222 !important;
+
+    font-family: Inter, Arial, sans-serif !important;
+    font-size: 16px !important;
+    line-height: 1.6 !important;
+
+    outline: none !important;
+
+    overflow-y: auto !important;
+
+    cursor: text !important;
+
+    margin: 0 !important;
+}
+
+/* When user clicks inside the editor */
+.rich-editor:focus {
+    border-color: #8bcf5a !important;
+
+    box-shadow:
+        0 0 0 3px rgba(139, 207, 90, 0.15) !important;
+}
+
+/* Placeholder */
+.rich-editor:empty::before {
+    content: attr(data-placeholder);
+
+    color: #999999;
+
+    pointer-events: none;
+}
+
+/* Text inside editor */
+.rich-editor p {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.rich-editor ul,
+.rich-editor ol {
+    padding-left: 25px;
+}
+
+.rich-editor a {
+    color: #3b7d2a;
+    text-decoration: underline;
+}
+
+
+
+/* =========================================================
+   STORY EDITOR
+   ========================================================= */
+
+.editor-wrapper {
+    width: 100%;
+    margin-top: 6px;
+    box-sizing: border-box;
+}
+
+/* Toolbar */
+.editor-toolbar {
+    width: 100%;
+    min-height: 42px;
+
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+    gap: 5px;
+    padding: 7px 9px;
+
+    box-sizing: border-box;
+
+    background: #f7f7f5;
+
+    border: 1px solid #dcdcd7;
+    border-bottom: none;
+
+    border-radius: 10px 10px 0 0;
+}
+
+/* Toolbar buttons */
+.editor-toolbar button {
+    min-width: 34px;
+    height: 34px;
+
+    padding: 4px 8px;
+
+    border: 1px solid #d5d5d0;
+    border-radius: 6px;
+
+    background: white;
+    color: #222;
+
+    cursor: pointer;
+}
+
+/* Toolbar select */
+.editor-toolbar select {
+    height: 34px;
+    padding: 4px 8px;
+
+    border: 1px solid #d5d5d0;
+    border-radius: 6px;
+
+    background: white;
+}
+
+/* =========================================================
+   BIG WRITING AREA
+   ========================================================= */
+
+.rich-editor {
+    display: block !important;
+
+    width: 100% !important;
+
+    /* THIS IS THE IMPORTANT PART */
+    min-height: 400px !important;
+    height: 400px !important;
+
+    box-sizing: border-box !important;
+
+    padding: 18px !important;
+
+    background: #ffffff !important;
+
+    border: 1px solid #dcdcd7 !important;
+    border-radius: 0 0 10px 10px !important;
+
+    outline: none !important;
+
+    font-family: Inter, Arial, sans-serif !important;
+    font-size: 16px !important;
+    line-height: 1.7 !important;
+
+    color: #222 !important;
+
+    overflow-y: auto !important;
+
+    cursor: text !important;
+
+    margin: 0 !important;
+
+    resize: none;
+}
+
+/* Writing area focus */
+.rich-editor:focus {
+    border-color: #8bcf68 !important;
+
+    box-shadow:
+        0 0 0 3px rgba(139, 207, 104, 0.12) !important;
+}
+
+/* Placeholder */
+.rich-editor:empty::before {
+    content: attr(data-placeholder);
+
+    color: #999;
+
+    pointer-events: none;
+}
+
+/* Paragraph spacing */
+.rich-editor p {
+    margin: 0 0 12px;
+}
+
+/* Lists */
+.rich-editor ul,
+.rich-editor ol {
+    padding-left: 25px;
+}
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+.form-page .actions-row {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    margin-top: 28px;
+}
+
+/* Publish button */
+.publish-btn {
+    min-height: 50px;
+
+    padding: 13px 28px;
+
+    border-radius: 999px;
+
+    background: linear-gradient(
+        135deg,
+        #9eea84 0%,
+        #b9ef72 100%
+    );
+
+    color: #052006;
+
+    border: none;
+
+    font-size: 16px;
+    font-weight: 800;
+
+    cursor: pointer;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+}
+
+/* Back button */
+.back-btn {
+    min-height: 50px;
+
+    padding: 10px 24px;
+
+    border-radius: 10px;
+
+    background: #ffffff;
+
+    border: 1px solid #dcdcdc;
+
+    color: #24342b;
+
+    font-size: 16px;
+    font-weight: 700;
+
+    text-decoration: none;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* =========================================================
+   RIGHT IMAGE
+   ========================================================= */
+
+.create-visual {
+    min-height: 100%;
+    height: auto;
+
+    background-position: center center;
+    background-size: cover;
+
+    padding: 0;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 1000px) {
+
+    .create-panel {
+        grid-template-columns: 1fr;
+    }
+
+    .create-side {
+        padding: 35px 30px;
+    }
+
+    .create-visual {
+        min-height: 400px;
+    }
+
+    .rich-editor {
+        height: 350px !important;
+        min-height: 350px !important;
+    }
+}
+
+
+@media (max-width: 700px) {
+
+    .create-side {
+        padding: 25px 20px;
+    }
+
+    .create-heading {
+        font-size: 2rem;
+    }
+
+    .editor-toolbar {
+        gap: 3px;
+        padding: 6px;
+    }
+
+    .editor-toolbar button {
+        min-width: 30px;
+        height: 30px;
+        padding: 3px 6px;
+    }
+
+    .rich-editor {
+        height: 300px !important;
+        min-height: 300px !important;
+
+        padding: 14px !important;
+    }
+
+    .form-page .actions-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .publish-btn,
+    .back-btn {
+        width: 100%;
+    }
+
+    .create-visual {
+        min-height: 300px;
+    }
+}
+
+
+
+
+/* Blog writing area fix */
+.rich-editor {
+    width: 100% !important;
+    height: 300px !important;
+    min-height: 300px !important;
+    max-height: none !important;
+
+    padding: 16px !important;
+    box-sizing: border-box !important;
+
+    border: 1px solid #ddd !important;
+    border-radius: 0 0 10px 10px !important;
+
+    background: #fff !important;
+
+    overflow-y: auto !important;
+
+    font-size: 16px !important;
+    line-height: 1.6 !important;
+
+    outline: none !important;
+}
+
+.editor-wrapper {
+    width: 100% !important;
+}
+
+.editor-toolbar {
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.rich-editor {
+    display: block !important;
+    width: 100% !important;
+    height: 400px !important;
+    min-height: 400px !important;
+    max-height: none !important;
+    box-sizing: border-box !important;
+    padding: 16px !important;
+    overflow-y: auto !important;
+}
+
+
+
+
+
+/* =========================================================
+   CREATE BLOG PAGE
+   ========================================================= */
+
+.create-panel {
+    width: min(1180px, 96%);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    overflow: hidden;
+    border-radius: 16px;
+    background: #fff;
+}
+
+.create-side {
+    padding: 40px 55px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    box-sizing: border-box;
+}
+
+.create-side .form-container {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+}
+
+/* Inputs */
+.create-side input[type="text"],
+.create-side input[type="url"] {
+    width: 100%;
+    height: 50px;
+    padding: 12px 16px;
+    box-sizing: border-box;
+}
+
+/* Editor */
+.editor-wrapper {
+    width: 100%;
+    margin-top: 6px;
+    box-sizing: border-box;
+}
+
+/* Toolbar */
+.editor-toolbar {
+    width: 100%;
+    min-height: 42px;
+
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+    gap: 5px;
+    padding: 7px 9px;
+
+    box-sizing: border-box;
+
+    background: #f7f7f5;
+
+    border: 1px solid #dcdcd7;
+    border-bottom: none;
+
+    border-radius: 10px 10px 0 0;
+}
+
+.editor-toolbar button {
+    min-width: 34px;
+    height: 34px;
+
+    padding: 4px 8px;
+
+    border: 1px solid #d5d5d0;
+    border-radius: 6px;
+
+    background: #fff;
+
+    cursor: pointer;
+}
+
+.editor-toolbar select {
+    height: 34px;
+    padding: 4px 8px;
+
+    border: 1px solid #d5d5d0;
+    border-radius: 6px;
+
+    background: #fff;
+}
+
+/* =========================================================
+   YOUR BLOG WRITING AREA
+   ========================================================= */
+
+.rich-editor {
+    display: block !important;
+
+    width: 100% !important;
+
+    height: 330px !important;
+    min-height: 330px !important;
+
+    padding: 18px !important;
+
+    box-sizing: border-box !important;
+
+    background: #fff !important;
+
+    border: 1px solid #dcdcd7 !important;
+
+    border-radius: 0 0 10px 10px !important;
+
+    outline: none !important;
+
+    font-family: Inter, Arial, sans-serif !important;
+    font-size: 16px !important;
+    line-height: 1.7 !important;
+
+    color: #222 !important;
+
+    overflow-y: auto !important;
+
+    margin: 0 !important;
+}
+
+.rich-editor:focus {
+    border-color: #8bcf68 !important;
+
+    box-shadow:
+        0 0 0 3px rgba(139,207,104,.12) !important;
+}
+
+.rich-editor:empty::before {
+    content: attr(data-placeholder);
+
+    color: #999;
+
+    pointer-events: none;
+}
+
+/* Buttons */
+.form-page .actions-row {
+    width: 100%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    margin-top: 25px;
+}
+
+.publish-btn {
+    min-height: 50px;
+
+    padding: 13px 28px;
+
+    border: none;
+
+    border-radius: 999px;
+
+    background: linear-gradient(
+        135deg,
+        #9eea84,
+        #b9ef72
+    );
+
+    color: #052006;
+
+    font-size: 16px;
+    font-weight: 800;
+
+    cursor: pointer;
+}
+
+.back-btn {
+    min-height: 50px;
+
+    padding: 10px 24px;
+
+    border-radius: 10px;
+
+    background: #fff;
+
+    border: 1px solid #dcdcdc;
+
+    color: #24342b;
+
+    font-size: 16px;
+    font-weight: 700;
+
+    text-decoration: none;
+}
+
+/* Right image */
+.create-visual {
+    min-height: 100%;
+
+    background-position: center;
+    background-size: cover;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 1000px) {
+
+    .create-panel {
+        grid-template-columns: 1fr;
+    }
+
+    .create-side {
+        padding: 35px 30px;
+    }
+
+    .create-visual {
+        min-height: 400px;
+    }
+
+    .rich-editor {
+        height: 330px !important;
+        min-height: 330px !important;
+    }
+}
+
+@media (max-width: 700px) {
+
+    .create-side {
+        padding: 25px 20px;
+    }
+
+    .rich-editor {
+        height: 300px !important;
+        min-height: 300px !important;
+    }
+
+    .form-page .actions-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .publish-btn,
+    .back-btn {
+        width: 100%;
+    }
+}
+
+
+
+
+/* FINAL CREATE BLOG EDITOR FIX */
+
+body.form-page .create-panel {
+    align-items: stretch !important;
+}
+
+body.form-page .create-side {
+    height: auto !important;
+    min-height: 700px !important;
+    justify-content: flex-start !important;
+}
+
+body.form-page .create-side .form-container {
+    width: 100% !important;
+    max-width: none !important;
+}
+
+body.form-page .editor-wrapper {
+    width: 100% !important;
+    height: auto !important;
+    min-height: 370px !important;
+}
+
+body.form-page .editor-wrapper .rich-editor {
+    width: 100% !important;
+    height: 330px !important;
+    min-height: 330px !important;
+    max-height: none !important;
+    display: block !important;
+    overflow-y: auto !important;
+    box-sizing: border-box !important;
+}
