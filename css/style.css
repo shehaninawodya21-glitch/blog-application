@@ -2687,3 +2687,555 @@ body.form-page .editor-wrapper .rich-editor {
     overflow-y: auto !important;
     box-sizing: border-box !important;
 }
+
+body.form-page {
+    min-height: 100vh;
+    padding: 18px 0;
+    background: linear-gradient(135deg, #f4fbe9 0%, #edf7e3 48%, #f8fcf2 100%);
+}
+
+body.form-page .create-shell {
+    min-height: calc(100vh - 36px);
+    padding: 0 20px;
+    align-items: center;
+    background: transparent;
+}
+
+body.form-page .create-panel {
+    width: min(1220px, 100%);
+    min-height: 720px;
+    grid-template-columns: 1fr 1fr;
+    border: 1px solid rgba(218, 230, 207, 0.8);
+    border-radius: 12px;
+    box-shadow: 0 18px 42px rgba(54, 83, 42, 0.1);
+}
+
+body.form-page .create-side {
+    min-height: 720px !important;
+    padding: 34px 74px 28px;
+    background: #ffffff;
+    border-right: 1px solid #e8eee3;
+}
+
+body.form-page .create-heading {
+    margin-bottom: 5px;
+    font-size: clamp(2.2rem, 3.2vw, 3.25rem);
+    line-height: 0.98;
+    color: #17352d;
+}
+
+body.form-page .create-sub {
+    margin-bottom: 16px;
+    line-height: 1.2;
+}
+
+body.form-page .create-sub-phrase {
+    margin-right: 0;
+    font-size: 1.2rem;
+    color: #4c8d45;
+}
+
+body.form-page .create-sub-phrase::after {
+    bottom: -5px;
+    width: 44%;
+    height: 7px;
+}
+
+body.form-page .create-sub-highlight {
+    display: block;
+    padding: 9px 0 0;
+    font-family: var(--body-font);
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #31463b;
+    letter-spacing: 0.02em;
+    text-transform: none;
+}
+
+body.form-page .create-side label {
+    margin-top: 12px;
+    margin-bottom: 6px;
+    font-size: 0.88rem;
+    color: #1d382f;
+}
+
+body.form-page .create-side input[type="text"],
+body.form-page .create-side input[type="url"] {
+    height: 46px;
+    padding: 10px 16px;
+    border-color: #e0e8dc;
+    border-radius: 11px;
+    box-shadow: 0 4px 12px rgba(38, 67, 45, 0.05);
+    font-size: 0.92rem;
+}
+
+body.form-page .create-side .field-help {
+    margin-top: 5px;
+    font-size: 0.76rem;
+    line-height: 1.35;
+}
+
+body.form-page .editor-wrapper {
+    margin-top: 0;
+    min-height: 0 !important;
+}
+
+body.form-page .editor-toolbar {
+    gap: 3px;
+    padding: 5px 7px;
+    background: #fafcf9;
+    border-color: #e0e8dc;
+    border-radius: 9px 9px 0 0;
+}
+
+body.form-page .editor-toolbar button,
+body.form-page .editor-toolbar select,
+body.form-page .color-tool {
+    min-width: 31px;
+    width: auto;
+    height: 30px;
+    padding: 3px 7px;
+    border-color: #e0e6df;
+    border-radius: 6px;
+    font-size: 0.82rem;
+}
+
+body.form-page .editor-toolbar select {
+    min-width: 72px;
+}
+
+body.form-page .rich-editor {
+    height: 210px !important;
+    min-height: 210px !important;
+    padding: 14px !important;
+    border-color: #e0e8dc !important;
+    border-radius: 0 0 9px 9px !important;
+    font-size: 0.9rem !important;
+    line-height: 1.55 !important;
+}
+
+body.form-page .form-page .actions-row,
+body.form-page .actions-row {
+    margin-top: 24px;
+}
+
+body.form-page .publish-btn,
+body.form-page .back-btn {
+    min-height: 46px;
+    padding: 10px 23px;
+    border-radius: 999px;
+    font-size: 0.92rem;
+}
+
+body.form-page .create-visual {
+    min-height: 720px;
+    background-position: center;
+}
+
+@media (max-width: 1000px) {
+    body.form-page {
+        padding: 0;
+    }
+
+    body.form-page .create-shell {
+        min-height: 100vh;
+        padding: 20px;
+    }
+
+    body.form-page .create-panel {
+        grid-template-columns: 1fr;
+    }
+
+    body.form-page .create-side {
+        min-height: auto !important;
+        padding: 38px 42px;
+        border-right: 0;
+    }
+
+    body.form-page .create-visual {
+        min-height: 420px;
+    }
+}
+
+@media (max-width: 600px) {
+    body.form-page .create-shell {
+        padding: 0;
+    }
+
+    body.form-page .create-panel {
+        border-radius: 0;
+        border-left: 0;
+        border-right: 0;
+    }
+
+    body.form-page .create-side {
+        padding: 32px 20px 28px;
+    }
+
+    body.form-page .create-heading {
+        font-size: 2.35rem;
+    }
+
+    body.form-page .create-visual {
+        min-height: 320px;
+    }
+}
+
+/* ==========================================================
+   CREATE BLOG - FINAL IMAGE / LAYOUT FIX
+   This block intentionally comes last so it overrides older
+   create-page rules in this stylesheet.
+   ========================================================== */
+
+body.form-page {
+    min-height: 100vh;
+    margin: 0;
+    background: linear-gradient(135deg, #f4faed 0%, #eaf6df 100%);
+}
+
+body.form-page .create-shell {
+    min-height: 100vh;
+    width: 100%;
+    padding: 22px 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+body.form-page .create-panel {
+    width: min(1430px, 100%);
+    min-height: 820px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(430px, 0.82fr);
+    gap: 0;
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid rgba(215, 225, 205, .75);
+    border-radius: 22px;
+    box-shadow: 0 20px 55px rgba(57, 77, 45, .10);
+}
+
+body.form-page .create-side {
+    min-width: 0;
+    padding: 38px 58px 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    border-right: 1px solid #edf0e9;
+}
+
+body.form-page .create-side .form-container {
+    width: 100%;
+    max-width: 690px;
+    margin: 0;
+    padding: 0;
+}
+
+body.form-page .create-heading {
+    margin: 0 0 8px;
+    font-family: var(--heading-font);
+    font-size: clamp(2.45rem, 3.5vw, 3.7rem);
+    line-height: .98;
+    letter-spacing: -.055em;
+    color: #18352c;
+}
+
+body.form-page .create-sub {
+    margin: 0 0 22px;
+    line-height: 1.5;
+}
+
+body.form-page .create-sub-phrase {
+    font-size: 1.38rem;
+    margin-right: 0;
+}
+
+body.form-page .create-sub-phrase::after {
+    display: none;
+}
+
+body.form-page .create-sub-highlight {
+    display: block;
+    padding: 5px 0 0;
+    font-size: 1.02rem;
+    color: #285f31;
+}
+
+body.form-page .create-sub .divider {
+    display: none;
+}
+
+body.form-page .create-side label {
+    margin: 18px 0 8px;
+    color: #19362d;
+    font-size: .98rem;
+    font-weight: 800;
+}
+
+body.form-page .create-side input[type="text"],
+body.form-page .create-side input[type="url"] {
+    width: 100%;
+    height: 58px;
+    padding: 0 20px;
+    border: 1px solid #dfe6d8;
+    border-radius: 15px;
+    background: #fff;
+    color: #19362d;
+    font-size: 16px;
+    box-shadow: 0 5px 16px rgba(35, 56, 37, .035);
+}
+
+body.form-page .create-side input::placeholder {
+    color: #9aa49e;
+    font-style: italic;
+}
+
+body.form-page .field-help {
+    margin-top: 8px;
+    color: #59665f;
+    font-size: .88rem;
+    line-height: 1.45;
+}
+
+body.form-page .editor-wrapper {
+    width: 100%;
+    margin-top: 0;
+    border: 1px solid #dfe6d8;
+    border-radius: 15px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 5px 16px rgba(35, 56, 37, .035);
+}
+
+body.form-page .editor-toolbar {
+    min-height: 52px;
+    padding: 7px 9px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 5px;
+    background: #fff;
+    border-bottom: 1px solid #edf0e9;
+}
+
+body.form-page .editor-toolbar button,
+body.form-page .editor-toolbar select,
+body.form-page .color-tool {
+    height: 36px;
+    min-width: 36px;
+    padding: 0 9px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #e1e6df;
+    border-radius: 7px;
+    background: #fff;
+    color: #19362d;
+    cursor: pointer;
+}
+
+body.form-page .editor-toolbar button:hover,
+body.form-page .editor-toolbar select:hover,
+body.form-page .color-tool:hover {
+    background: #f5f9f2;
+    border-color: #cbd8c5;
+}
+
+body.form-page .editor-toolbar select {
+    min-width: 90px;
+}
+
+body.form-page .toolbar-divider {
+    width: 1px;
+    height: 25px;
+    margin: 0 3px;
+    background: #e4e9e1;
+}
+
+body.form-page .color-tool {
+    position: relative;
+    font-weight: 800;
+    gap: 5px;
+}
+
+body.form-page .color-tool input[type="color"] {
+    width: 18px;
+    height: 18px;
+    padding: 0;
+    border: 0;
+    cursor: pointer;
+}
+
+body.form-page .rich-editor {
+    width: 100%;
+    min-height: 235px;
+    max-height: 360px;
+    overflow-y: auto;
+    padding: 18px 20px;
+    border: 0;
+    outline: 0;
+    background: #fff;
+    color: #21352d;
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+body.form-page .rich-editor:empty::before {
+    content: attr(data-placeholder);
+    color: #9aa49e;
+    font-style: italic;
+    pointer-events: none;
+}
+
+body.form-page .rich-editor:focus {
+    box-shadow: none;
+}
+
+body.form-page .actions-row {
+    width: 100%;
+    margin-top: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 18px;
+}
+
+body.form-page .publish-btn,
+body.form-page .back-btn {
+    min-height: 52px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 28px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+body.form-page .publish-btn {
+    min-width: 220px;
+    padding: 0 28px;
+    border: 1px solid rgba(120, 180, 90, .12);
+    background: linear-gradient(135deg, #91e36b 0%, #b4ed79 100%);
+    color: #10270e;
+    font-size: 1rem;
+    font-weight: 800;
+    box-shadow: 0 10px 25px rgba(83, 141, 66, .12);
+}
+
+body.form-page .back-btn {
+    min-width: 185px;
+    padding: 0 25px;
+    border: 1px solid #e1e5df;
+    background: #fff;
+    color: #1b332b;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+body.form-page .publish-btn:hover,
+body.form-page .back-btn:hover {
+    transform: translateY(-2px);
+}
+
+/* RIGHT SIDE IMAGE FIX:
+   Use a real <img> with contain instead of background-size: cover.
+   This keeps the complete character visible and prevents cropping. */
+body.form-page .create-visual {
+    min-width: 0;
+    min-height: 100%;
+    height: 100%;
+    padding: 24px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fffdfa;
+    border: 0;
+    overflow: hidden;
+}
+
+body.form-page .create-illustration {
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 770px;
+    object-fit: contain;
+    object-position: center center;
+}
+
+@media (max-width: 1100px) {
+    body.form-page .create-shell {
+        padding: 16px;
+    }
+
+    body.form-page .create-panel {
+        grid-template-columns: minmax(0, 1fr) minmax(360px, .78fr);
+        min-height: 760px;
+    }
+
+    body.form-page .create-side {
+        padding: 34px 34px 38px;
+    }
+
+    body.form-page .create-heading {
+        font-size: 2.7rem;
+    }
+}
+
+@media (max-width: 850px) {
+    body.form-page .create-shell {
+        padding: 14px;
+        align-items: flex-start;
+    }
+
+    body.form-page .create-panel {
+        grid-template-columns: 1fr;
+        min-height: auto;
+    }
+
+    body.form-page .create-side {
+        border-right: 0;
+        border-bottom: 1px solid #edf0e9;
+        padding: 30px 24px 32px;
+    }
+
+    body.form-page .create-visual {
+        min-height: 430px;
+        height: 430px;
+        padding: 20px;
+    }
+
+    body.form-page .create-illustration {
+        max-height: 390px;
+    }
+}
+
+@media (max-width: 520px) {
+    body.form-page .create-heading {
+        font-size: 2.25rem;
+    }
+
+    body.form-page .create-sub-phrase {
+        font-size: 1.12rem;
+    }
+
+    body.form-page .editor-toolbar {
+        gap: 4px;
+    }
+
+    body.form-page .actions-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    body.form-page .publish-btn,
+    body.form-page .back-btn {
+        width: 100%;
+    }
+
+    body.form-page .create-visual {
+        min-height: 350px;
+        height: 350px;
+    }
+}
