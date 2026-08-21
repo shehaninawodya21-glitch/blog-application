@@ -1,9 +1,9 @@
 <?php
 
-$host = "localhost";
-$dbname = "blog_app";
-$username = "root";
-$password = "";
+$host = "sql306.infinityfree.com";
+$dbname = "if0_42707993_blogapp";
+$username = "if0_42707993";
+$password = "ruvlWcRlzBVP";
 
 try {
     $pdo = new PDO(
@@ -14,9 +14,9 @@ try {
 
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    $columns = $pdo->query("SHOW COLUMNS FROM blogPost")->fetchAll(PDO::FETCH_COLUMN);
+    $columns = $pdo->query("SHOW COLUMNS FROM blogpost")->fetchAll(PDO::FETCH_COLUMN);
     if (!in_array("image_url", $columns, true)) {
-        $pdo->exec("ALTER TABLE blogPost ADD COLUMN image_url VARCHAR(255) NULL AFTER content");
+        $pdo->exec("ALTER TABLE blogpost ADD COLUMN image_url VARCHAR(255) NULL AFTER content");
     }
 
     $pdo->exec(
@@ -26,7 +26,7 @@ try {
             user_id INT NOT NULL,
             comment TEXT NOT NULL,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            FOREIGN KEY (blog_id) REFERENCES blogPost(id) ON DELETE CASCADE,
+            FOREIGN KEY (blog_id) REFERENCES blogpost(id) ON DELETE CASCADE,
             FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
         )"
     );

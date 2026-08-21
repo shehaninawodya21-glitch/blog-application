@@ -22,7 +22,7 @@ if (!isset($_GET["id"]) || !is_numeric($_GET["id"])) {
 $blog_id = (int) $_GET["id"];
 
 $check = $pdo->prepare(
-    "SELECT user_id FROM blogPost WHERE id = ?"
+    "SELECT user_id FROM blogpost WHERE id = ?"
 );
 $check->execute([$blog_id]);
 $blog = $check->fetch(PDO::FETCH_ASSOC);
@@ -38,7 +38,7 @@ if ((int) $blog["user_id"] !== (int) $_SESSION["user_id"]) {
 }
 
 $stmt = $pdo->prepare(
-    "DELETE FROM blogPost
+    "DELETE FROM blogpost
      WHERE id = ? AND user_id = ?"
 );
 

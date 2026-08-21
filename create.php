@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
 
         $stmt = $pdo->prepare(
-            "INSERT INTO blogPost (user_id, title, content, image_url)
+            "INSERT INTO blogpost (user_id, title, content, image_url)
              VALUES (?, ?, ?, ?)"
         );
 

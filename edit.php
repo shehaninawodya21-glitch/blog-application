@@ -20,7 +20,7 @@ $blog_id = $_GET["id"];
 
 // Get the blog
 $stmt = $pdo->prepare(
-    "SELECT * FROM blogPost WHERE id = ?"
+    "SELECT * FROM blogpost WHERE id = ?"
 );
 
 $stmt->execute([$blog_id]);
@@ -54,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
 
         $update = $pdo->prepare(
-            "UPDATE blogPost
+            "UPDATE blogpost
              SET title = ?, content = ?, image_url = ?
              WHERE id = ? AND user_id = ?"
         );

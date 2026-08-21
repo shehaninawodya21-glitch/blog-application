@@ -39,10 +39,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["comment_text"])) {
 
 // Get blog and author
 $stmt = $pdo->prepare(
-    "SELECT blogPost.*, user.username
-     FROM blogPost
-     INNER JOIN user ON blogPost.user_id = user.id
-     WHERE blogPost.id = ?"
+    "SELECT blogpost.*, user.username
+     FROM blogpost
+     INNER JOIN user ON blogpost.user_id = user.id
+     WHERE blogpost.id = ?"
 );
 
 $stmt->execute([$blog_id]);
@@ -66,7 +66,7 @@ $commentsStmt->execute([$blog_id]);
 $comments = $commentsStmt->fetchAll(PDO::FETCH_ASSOC);
 
 // find previous post (by created_at)
-$prevStmt = $pdo->prepare("SELECT id FROM blogPost WHERE created_at < ? ORDER BY created_at DESC LIMIT 1");
+$prevStmt = $pdo->prepare("SELECT id FROM blogpost WHERE created_at < ? ORDER BY created_at DESC LIMIT 1");
 $prevStmt->execute([$blog['created_at']]);
 $prev = $prevStmt->fetch(PDO::FETCH_ASSOC);
 $prevId = $prev ? $prev['id'] : null;

@@ -2,14 +2,19 @@
 
 session_start();
 
+if (!isset($_SESSION["user_id"])) {
+    header("Location: login.php");
+    exit();
+}
+
 require_once "config/database.php";
 
 // Get all blog posts with author information
 $stmt = $pdo->query(
-    "SELECT blogPost.*, user.username
-     FROM blogPost
-     INNER JOIN user ON blogPost.user_id = user.id
-     ORDER BY blogPost.created_at DESC"
+    "SELECT blogpost.*, user.username
+     FROM blogpost
+     INNER JOIN user ON blogpost.user_id = user.id
+     ORDER BY blogpost.created_at DESC"
 );
 
 $blogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
