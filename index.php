@@ -2,11 +2,6 @@
 
 session_start();
 
-if (!isset($_SESSION["user_id"])) {
-    header("Location: register.php");
-    exit();
-}
-
 require_once "config/database.php";
 
 // Get all blog posts with author information
@@ -74,8 +69,13 @@ $blogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <h1>Thoughtful writing for curious minds.</h1>
             <p>Discover ideas, stories, and practical inspiration from writers who are building better conversations online.</p>
             <div class="hero-actions">
-                <a class="btn btn-primary" href="create.php">✎ Create Post</a>
-                <a class="btn btn-outline" href="#posts">Explore Posts</a>
+            <?php if (isset($_SESSION["user_id"])): ?>
+        <a class="btn btn-primary" href="create.php">✎ Create Post</a>
+    <?php else: ?>
+        <a class="btn btn-primary" href="login.php">✎ Login to Write</a>
+    <?php endif; ?>
+
+    <a class="btn btn-outline" href="#posts">Explore Posts</a>
             </div>
         </div>
 
@@ -101,7 +101,11 @@ $blogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <span class="section-kicker">Latest</span>
             <h2>All stories</h2>
         </div>
-        <a class="view-all" href="create.php">✎ Create Post</a>
+        <?php if (isset($_SESSION["user_id"])): ?>
+    <a class="view-all" href="create.php">✎ Create Post</a>
+<?php else: ?>
+    <a class="view-all" href="login.php">✎ Login to Write</a>
+<?php endif; ?>
     </div>
 
     <div class="blog-grid">
